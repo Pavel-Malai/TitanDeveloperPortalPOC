@@ -32,6 +32,13 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/",
+                "src/styles",
+                "node_modules/@commify/"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

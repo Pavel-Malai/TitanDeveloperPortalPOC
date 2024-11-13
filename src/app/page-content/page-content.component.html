@@ -1,0 +1,10 @@
+<div class="page-content-container">
+    <h1>{{pageContent?.title}}</h1>
+    <h4 *ngIf="pageContent?.description" [innerHTML]="pageContent?.description | safeHtml"></h4>
+    <div *ngIf="pageContent?.content" [innerHTML]="pageContent?.content | safeHtml"></div>
+
+    <ng-container *ngFor="let section of pageContent?.sections">
+        <h2 *ngIf="section.id" id="{{section.id}}">{{section.title}}</h2>
+        <div *ngIf="section.content" [innerHTML]="section.content| safeHtml"></div>
+    </ng-container>
+</div>

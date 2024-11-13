@@ -1,1 +1,169 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:map';
+@use "@angular/material" as mat;
+
+@import "@angular/material/theming";
+@import "styles/themes";
+
+
+//Local imports
+@import "./app/page-content/page-content.component.theme.scss";
+@import "./app/layout/layout.component.theme.scss";
+
+
+// Imports from lib
+@import "titan-scp-components/assets/typography";
+@import "titan-scp-components/assets/spacing";
+@import "titan-scp-components/assets/components-themes/tab-group.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/toggle.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/input.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/inline-input.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/base-button.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/flat-button.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/stroked-button.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/notification.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/dropdown.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/text-area.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/message-preview.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/stepper.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/date-picker.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/time-picker.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/upload.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/chip-list.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/input-chip-form.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/checkbox.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/radio-button.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/table.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/link.component.theme.scss";
+@import "titan-scp-components/assets/components-themes/tooltip.component.theme";
+@import "titan-scp-components/assets/flex";
+
+
+@include mat.core();
+@include mat.typography-hierarchy($custom-typography-config);
+
+@mixin custom-component-theming($theme) {
+  // @include layout($theme);
+  // @include toolbar-info($theme);
+  // @include toolbar-help($theme);
+  // @include account-selector($theme);
+  // @include user-profile($theme);
+  // @include profile($theme);
+  // @include quick-links($theme);
+  // @include tile($theme);
+  // @include error($theme);
+
+  @include page-content($theme);
+  @include layout-theme($theme);
+
+  @include tabs-group($theme);
+  @include input($theme);
+  @include inline-input($theme);
+  @include toggle($theme);
+  @include base-button($theme);
+  @include flat-button($theme);
+  @include stroked-button($theme);
+  @include notification($theme);
+  @include dropdown($theme);
+  @include text-area($theme);
+  @include message-preview($theme);
+  @include stepper($theme);
+  @include date-picker($theme);
+  @include time-picker($theme);
+  @include upload($theme);
+  @include chip-list($theme);
+  @include input-chip-form($theme);
+  @include checkbox($theme);
+  @include radio-button($theme);
+  @include table($theme);
+  @include link($theme);
+}
+
+@mixin component-theming($theme) {
+  @include mat.core-theme($theme);
+  @include mat.form-field-theme($theme);
+  @include mat.slide-toggle-theme($theme);
+  @include mat.menu-theme($theme);
+  @include mat.progress-spinner-theme($theme);
+  @include mat.table-theme($theme);
+  @include mat.tabs-theme($theme);
+  @include mat.paginator-theme($theme);
+  @include mat.select-theme($theme);
+  @include mat.chips-theme($theme);
+  @include mat.button-theme($theme);
+  @include mat.checkbox-theme($theme);
+  @include mat.dialog-theme($theme);
+  @include mat.tooltip-theme($theme);
+  @include mat.datepicker-theme($theme);
+}
+
+//The light theme
+.esendex {
+  @include component-theming($esendex-theme);
+  @include angular-material-theme($esendex-theme);
+  @include custom-component-theming($esendex-theme);
+}
+
+//Define custom theme for the dark mode, which allows overriding background/foreground colors easier
+$dark-theme-background: (
+  status-bar: #42145f,
+  app-bar:    #42145f,
+  background: #3C4752,
+  hover:      rgba(white, 0.04), 
+  card:       #3C4752,
+  dialog:     #3C4752 ,
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+$dark-theme-foreground: (
+  base:              white,
+  divider:           $white-12-opacity,
+  dividers:          $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-custom-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $dark-theme-foreground,
+    background: $dark-theme-background,
+  );
+}
+
+$custom-theme-primary: mat-palette($esendex-primary);
+$custom-theme-accent: mat-palette($esendex-accent);
+$custom-theme-warn: mat-palette($esendex-warn);
+
+$custom-theme: create-custom-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+
+.custom-dark-theme {
+   @include component-theming($custom-theme);
+   @include angular-material-theme($custom-theme);
+   @include custom-component-theming($custom-theme);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "open-sans", "Helvetica Neue", sans-serif;}
+

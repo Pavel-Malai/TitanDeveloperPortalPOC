@@ -1,0 +1,7 @@
+@mixin layout-theme($theme) {
+  $accent: map-get($theme, accent);
+
+  .topnav-toolbar{
+       background-color: mat-color($accent, 500);
+  }
+}
