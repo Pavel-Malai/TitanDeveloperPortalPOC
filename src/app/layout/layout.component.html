@@ -1,0 +1,53 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" class="sidenav" opened fixedInViewport="true">
+     <ng-container *ngFor="let sidenavItem of sidenavItems">
+
+        <ng-container *ngIf="!sidenavItem.sections">
+          <mat-nav-list>
+            <a mat-list-item routerLink='{{sidenavItem.url}}'>{{ sidenavItem.title }}</a>
+          </mat-nav-list>
+        </ng-container>
+
+        <mat-expansion-panel *ngIf="sidenavItem.sections">
+           <mat-expansion-panel-header>
+              <mat-panel-title>
+                 {{ sidenavItem.title}}
+              </mat-panel-title>
+           </mat-expansion-panel-header>
+           <mat-nav-list *ngIf="sidenavItem.sections">
+              <ng-container *ngFor="let subitem of sidenavItem.sections">
+                 <a mat-list-item routerLink='{{sidenavItem.url}}'>{{ subitem.title }}</a>
+
+<!-- 
+                 <mat-expansion-panel *ngIf="subitem">
+                  <mat-expansion-panel-header>
+                     <mat-panel-title>
+                        {{ subitem.title}}
+                     </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-nav-list *ngIf="subitem.sections">
+                     <ng-container *ngFor="let subitem of sidenavItem.sections">
+                        <a mat-list-item routerLink='{{sidenavItem.url}}'>{{ subitem.title }}</a>
+                     </ng-container>
+                  </mat-nav-list>
+               </mat-expansion-panel> -->
+
+
+              </ng-container>
+
+
+              
+              
+
+
+
+
+           </mat-nav-list>
+        </mat-expansion-panel>
+     </ng-container>
+  </mat-sidenav>
+  <mat-sidenav-content>
+     Main Page
+     <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
