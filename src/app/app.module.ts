@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { PageContentComponent } from './page-content/page-content.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SiteContentMockService } from './services/site-content-mock.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
@@ -41,40 +41,34 @@ export function initializeApp(configLoaderService: ConfigLoaderService, siteCont
   }
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    PageContentComponent,
-    LayoutComponent,
-    SafeHtmlPipe,
-    ThemeToggleComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    HttpClientModule,
-    MatTreeModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatTableModule
-  ],
-  providers: [
-    SiteContentMockService,
-    BrandingService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      multi: true,
-      deps: [ConfigLoaderService, SiteContentMockService, BrandingService]
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        PageContentComponent,
+        LayoutComponent,
+        SafeHtmlPipe,
+        ThemeToggleComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatListModule,
+        MatTreeModule,
+        MatButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatTableModule], providers: [
+        SiteContentMockService,
+        BrandingService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeApp,
+            multi: true,
+            deps: [ConfigLoaderService, SiteContentMockService, BrandingService]
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
