@@ -2,7 +2,7 @@
   $accent: map-get($theme, accent);
 
   .topnav-toolbar{
-       background-color: mat-color($accent, 500);
+       background-color: mat.m2-get-color-from-palette($accent, 500);
   }
 
   pre {

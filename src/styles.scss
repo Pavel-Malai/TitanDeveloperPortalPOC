@@ -1,7 +1,6 @@
 @use 'sass:map';
 @use "@angular/material" as mat;
 
-@import "@angular/material/theming";
 @import "styles/themes";
 
 
@@ -99,7 +98,7 @@
 //The light theme, defined in SCP Components
 .esendex {
   @include component-theming($esendex-theme);
-  @include angular-material-theme($esendex-theme);
+  @include mat.all-component-themes($esendex-theme);
   @include custom-component-theming($esendex-theme);
 }
 
@@ -232,7 +231,7 @@ $custom-dark-theme: mat.m2-define-dark-theme((
 
 .custom-dark-theme {
    @include component-theming($custom-dark-theme);
-   @include angular-material-theme($custom-dark-theme);
+   @include mat.all-component-themes($custom-dark-theme);
    @include custom-component-theming($custom-dark-theme);
 }
 
