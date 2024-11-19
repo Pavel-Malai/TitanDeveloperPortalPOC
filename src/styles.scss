@@ -96,71 +96,144 @@
   @include mat.datepicker-theme($theme);
 }
 
-//The light theme
+//The light theme, defined in SCP Components
 .esendex {
   @include component-theming($esendex-theme);
   @include angular-material-theme($esendex-theme);
   @include custom-component-theming($esendex-theme);
 }
 
+//The dark theme, will need to be moved to defined in SCP Components
+//We will need to define a palette for each brand, which will be stored in tenant configuration
+
+$dark-primary: var(--primary-color-300);
+$dark-primary-1: var(--primary-color-100);
+$dark-primary-2: var(--primary-color-200);
+$dark-primary-3: $dark-primary;
+$dark-primary-4: var(--primary-color-400);
+$dark-primary-5: var(--primary-color-500);
+$dark-primary-6: var(--primary-color-600);
+$dark-primary-7: var(--primary-color-700);
+
+/* accent */
+$dark-accent: var(--secondary-color-300);
+$dark-accent-1: var(--secondary-color-100);
+$dark-accent-2: var(--secondary-color-200);
+$dark-accent-3: $dark-accent;
+$dark-accent-4: var(--secondary-color-400);
+$dark-accent-5: var(--secondary-color-500);
+$dark-accent-6: var(--secondary-color-600);
+$dark-accent-7: var(--secondary-color-700);
+
+//The palletes will be different for dark mode
+$dark-primary-palette: (
+  50: var(--primary-color-lightened-25),
+  100: var(--primary-color-lightened-5),
+  200: $dark-primary-7,
+  300: $dark-primary-6,
+  400: $dark-primary-5,
+  500: $dark-primary-4,
+  600: $dark-primary-3,
+  700: $dark-primary-2,
+  800: $dark-primary-1,
+  900: $dark-primary,
+  A100: $info,
+  A200: $success,
+  A400: $warning,
+  A700: $danger,
+  contrast: $contrast
+);
+
+$dark-accent-palette: (
+  50: var(--accent-color-lightened-25),
+  100: var(--accent-color-lightened-5),
+  200: $dark-accent-7,
+  300: $dark-accent-6,
+  400: $dark-accent-5,
+  500: $dark-accent-4,
+  600: $dark-accent-3,
+  700: $dark-accent-2,
+  800: $dark-accent-1,
+  900: $dark-accent,
+  A100: $info,
+  A200: $success,
+  A400: $warning,
+  A700: $danger,
+  contrast: $contrast
+);
+
+$dark-primary: mat.define-palette($dark-primary-palette, 900);
+$dark-accent: mat.define-palette($dark-accent-palette, 900);
+$dark-warn: mat.define-palette($warning-palette, 900);
+
+//Define using the default angular material colors
+$custom-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $dark-primary,
+    accent: $dark-accent,
+    warn: $dark-warn,
+  ),
+  typography: $custom-typography-config
+));
+
 //Define custom theme for the dark mode, which allows overriding background/foreground colors easier
-$dark-theme-background: (
-  status-bar: #42145f,
-  app-bar:    #42145f,
-  background: #3C4752,
-  hover:      rgba(white, 0.04), 
-  card:       #3C4752,
-  dialog:     #3C4752 ,
-  disabled-button: $white-12-opacity,
-  raised-button: map-get($mat-grey, 800),
-  focused-button: $white-6-opacity,
-  selected-button: map_get($mat-grey, 900),
-  selected-disabled-button: map_get($mat-grey, 800),
-  disabled-button-toggle: black,
-  unselected-chip: map_get($mat-grey, 700),
-  disabled-list-option: black,
-);
+// $dark-theme-background: (
+//   status-bar: #42145f,
+//   app-bar:    #42145f,
+//   background: #3C4752,
+//   hover:      rgba(white, 0.04), 
+//   card:       #3C4752,
+//   dialog:     #3C4752 ,
+//   disabled-button: $white-12-opacity,
+//   raised-button: map-get($mat-grey, 800),
+//   focused-button: $white-6-opacity,
+//   selected-button: map_get($mat-grey, 900),
+//   selected-disabled-button: map_get($mat-grey, 800),
+//   disabled-button-toggle: black,
+//   unselected-chip: map_get($mat-grey, 700),
+//   disabled-list-option: black,
+// );
 
-$dark-theme-foreground: (
-  base:              white,
-  divider:           $white-12-opacity,
-  dividers:          $white-12-opacity,
-  disabled:          rgba(white, 0.3),
-  disabled-button:   rgba(white, 0.3),
-  disabled-text:     rgba(white, 0.3),
-  hint-text:         rgba(white, 0.3),
-  secondary-text:    rgba(white, 0.7),
-  icon:              white,
-  icons:             white,
-  text:              white,
-  slider-min:        white,
-  slider-off:        rgba(white, 0.3),
-  slider-off-active: rgba(white, 0.3),
-);
+// $dark-theme-foreground: (
+//   base:              #10151A,
+//   divider:           $white-12-opacity,
+//   dividers:          $white-12-opacity,
+//   disabled:          rgba(white, 0.3),
+//   disabled-button:   rgba(white, 0.3),
+//   disabled-text:     rgba(white, 0.3),
+//   hint-text:         rgba(white, 0.3),
+//   secondary-text:    rgba(white, 0.7),
+//   icon:              white,
+//   icons:             white,
+//   text:              white,
+//   slider-min:        white,
+//   slider-off:        rgba(white, 0.3),
+//   slider-off-active: rgba(white, 0.3),
+// );
 
-// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
-@function create-custom-theme($primary, $accent, $warn: mat-palette($mat-red)) {
-  @return (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-    is-dark: true,
-    foreground: $dark-theme-foreground,
-    background: $dark-theme-background,
-  );
-}
+// // instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+// @function create-custom-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+//   @return (
+//     primary: $primary,
+//     accent: $accent,
+//     warn: $warn,
+//     is-dark: true,
+//     foreground: $dark-theme-foreground,
+//     background: $dark-theme-background,
+//   );
+// }
 
-$custom-theme-primary: mat-palette($esendex-primary);
-$custom-theme-accent: mat-palette($esendex-accent);
-$custom-theme-warn: mat-palette($esendex-warn);
+// $custom-theme-primary: mat-palette($esendex-primary);
+// $custom-theme-accent: mat-palette($esendex-accent);
+// $custom-theme-warn: mat-palette($esendex-warn);
 
-$custom-theme: create-custom-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+// $custom-theme: create-custom-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 
 .custom-dark-theme {
-   @include component-theming($custom-theme);
-   @include angular-material-theme($custom-theme);
-   @include custom-component-theming($custom-theme);
+   @include component-theming($custom-dark-theme);
+   @include angular-material-theme($custom-dark-theme);
+   @include custom-component-theming($custom-dark-theme);
 }
 
 

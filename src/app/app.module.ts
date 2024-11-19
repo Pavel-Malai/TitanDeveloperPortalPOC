@@ -19,6 +19,7 @@ import { ConfigLoaderService } from './services/config-loader.service';
 import { BrandingService } from './services/branding.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { MatTableModule } from '@angular/material/table';
 
 export function initializeSiteContent(siteContentService: SiteContentMockService) {
   return (): Promise<any> => {
@@ -61,23 +62,12 @@ export function initializeApp(configLoaderService: ConfigLoaderService, siteCont
     MatTreeModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule 
+    MatToolbarModule,
+    MatTableModule
   ],
   providers: [
     SiteContentMockService,
     BrandingService,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeSiteContent,
-    //   multi: true,
-    //   deps: [SiteContentMockService]
-    // },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeConfig,
-    //   multi: true,
-    //   deps: [ConfigLoaderService]
-    // },
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,

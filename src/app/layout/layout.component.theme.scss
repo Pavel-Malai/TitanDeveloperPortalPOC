@@ -4,4 +4,14 @@
   .topnav-toolbar{
        background-color: mat-color($accent, 500);
   }
+
+  pre {
+    // $theme-background: map-get($theme, background);
+    // $theme-background-color:  map-get($theme-background, 'background');
+
+    //  @debug $theme-background;
+    //  @debug $theme-background-color;
+
+    // background-color: $theme-background-color;
+  }
 }
