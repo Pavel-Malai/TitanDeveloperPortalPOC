@@ -1,8 +1,29 @@
 <mat-sidenav-container>
   <mat-sidenav mode="side" class="sidenav" opened fixedInViewport="true">
 
-    
-    <!-- SideNav implementation using Mat Tree -->
+    <!-- Side Nav implementation using  mat-expansion-panel -->
+     <ng-container *ngFor="let sidenavItem of sidenavItems">
+        <ng-container *ngIf="!sidenavItem.sections">
+          <mat-nav-list>
+            <a mat-list-item routerLink='{{sidenavItem.url}}'>{{ sidenavItem.title }}</a>
+          </mat-nav-list>
+        </ng-container>
+
+        <mat-expansion-panel *ngIf="sidenavItem.sections">
+           <mat-expansion-panel-header>
+              <mat-panel-title>
+                 {{ sidenavItem.title}}
+              </mat-panel-title>
+           </mat-expansion-panel-header>
+           <mat-nav-list *ngIf="sidenavItem.sections">
+              <ng-container *ngFor="let subitem of sidenavItem.sections">
+                 <a mat-list-item routerLink='{{sidenavItem.url}}' fragment="{{subitem.id}}">{{ subitem.title }}</a>
+              </ng-container>
+           </mat-nav-list>
+        </mat-expansion-panel>
+     </ng-container>
+
+         <!-- SideNav implementation using Mat Tree -->
     <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
           <mat-nav-list>
@@ -28,27 +49,6 @@
       </mat-nested-tree-node>
     </mat-tree> -->
 
-    <!-- Side Nav implementation using  mat-expansion-panel -->
-     <ng-container *ngFor="let sidenavItem of sidenavItems">
-        <ng-container *ngIf="!sidenavItem.sections">
-          <mat-nav-list>
-            <a mat-list-item routerLink='{{sidenavItem.url}}'>{{ sidenavItem.title }}</a>
-          </mat-nav-list>
-        </ng-container>
-
-        <mat-expansion-panel *ngIf="sidenavItem.sections">
-           <mat-expansion-panel-header>
-              <mat-panel-title>
-                 {{ sidenavItem.title}}
-              </mat-panel-title>
-           </mat-expansion-panel-header>
-           <mat-nav-list *ngIf="sidenavItem.sections">
-              <ng-container *ngFor="let subitem of sidenavItem.sections">
-                 <a mat-list-item routerLink='{{sidenavItem.url}}' fragment="{{subitem.id}}">{{ subitem.title }}</a>
-              </ng-container>
-           </mat-nav-list>
-        </mat-expansion-panel>
-     </ng-container>
   </mat-sidenav>
   <mat-sidenav-content>
 
