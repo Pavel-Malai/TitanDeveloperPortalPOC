@@ -27,6 +27,7 @@ export function initializeSiteContent(siteContentService: SiteContentMockService
   }
 }
 
+
 export function initializeConfig(configLoaderService: ConfigLoaderService) {
   return (): Promise<any> => {
     return configLoaderService.init();
