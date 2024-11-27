@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,6 +70,7 @@ export function initializeApp(configLoaderService: ConfigLoaderService, siteCont
             multi: true,
             deps: [ConfigLoaderService, SiteContentMockService, BrandingService]
         },
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        provideClientHydration()
     ] })
 export class AppModule { }
